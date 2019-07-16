@@ -51,7 +51,7 @@ app.get('/users/:id', (req, res, next) => {
   console.log('******* USERS with id');
 });
 
-app.get('/login/:username', (req, res, next) => {
+app.get('/users/login/:username', (req, res, next) => {
   const knexInstance = req.app.get('db');
   console.log(req.params);
   const users = UsersService.getByUsername(knexInstance, req.params.username)

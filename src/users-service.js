@@ -5,11 +5,13 @@ const UsersService = {
     return knex.select('*').from('users');
   },
   insertUser(knex, newUser) {
+    console.log('USER-SERVICE: INSERT USER');
     console.log(newUser);
     return knex
       .insert(newUser)
       .into('users')
-      .returning('*');
+      .returning('*')
+      .then(rows => rows[0]);
   },
   deleteUser(knex, id) {
     return knex('users')
@@ -24,11 +26,16 @@ const UsersService = {
       .first();
   },
   getByUsername(knex, username) {
-    return knex
+    const user = knex
       .from('users')
       .select('*')
       .where('username', username)
-      .first();
+      .first()
+      .then(res => {
+        console.log(res);
+        return res;
+      });
+    return user;
   }
 };
 
